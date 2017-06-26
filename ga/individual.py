@@ -1,18 +1,30 @@
 #-*-coding: utf-8 -*-
 
+import struct
+
 class Individual:
     """
     Класс особи популяции
     """
 
 
-    def __init__():
-        self.x = 0
-        self.y = 0
+    def __init__(self, x = 0, y = 0):
+        self.x = x
+        self.y = y
 
 
     def genes(self):
         """
         Возвращает массив генов 1/0
         """
-        None
+        return bin(struct.unpack('!i',struct.pack('!f',self.x))[0])[2:]
+
+
+    def load_genes(self, genes):
+        integer = int(genes, 2)
+        hex = struct.pack('!i', integer)
+        self.x =  struct.unpack('!f', hex)[0]
+
+
+    def __str__(self):
+        return "(" + str(self.x) + ", " +  str(self.y) + ")"
